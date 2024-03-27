@@ -1,0 +1,66 @@
+@charset "UTF-8";
+
+
+  .title{
+    text-align: center;
+    font-weight: bold;
+    font-size: 200%;
+    color: blue;
+  }
+  
+  .table2{
+    border: 1px solid black;
+    border-collapse: collapse;
+    font-weight: bold;
+    margin: 10px auto;
+  }
+
+  .table2 td{
+    width: 100px;
+    height: 10px;
+    border: 1px solid gray;
+    vertical-align: top;
+    padding: 10px;
+    text-align: center;
+  }
+
+  .table2 .top{
+    font-weight: bold;
+    text-align: center;
+    width: 10px;
+  }
+  .table2 .top .sunday{
+    color: red;
+  }
+  .table2 #date .sunday{
+    color: red;
+    height: 100px;
+  }
+
+  .table2 .top .saturday{
+    color: blue;
+    
+  }
+  .table2 #date .saturday{
+    color: blue;
+    height: 100px;
+  }
+
+  .table2 .top .notfeb{
+    color: gray;
+    
+  }
+  .table2 #date .notfeb{
+    color: gray;
+  }
+  
+  .table2 #date{
+    height:150px;
+  }
+  
+  .btn-remove, .btn-modify{
+    width:80px;
+    height:40px;
+    margin: 10px auto;
+  }
+  
