@@ -20,7 +20,7 @@
       <result column="MOBILE" property="mobile" />
       <result column="EVENT_AGREE" property="eventAgree" />
       <result column="SIGNUP_KIND" property="signupKind" />
-      <result column="PW_MODIFY_DT" property="pwModifyDt" />
+      <result column="PW_MODIFIED_DT" property="pwModifyDt" />
       <result column="SIGNUP_DT" property="signupDt" />
     </association>
   
@@ -31,7 +31,7 @@
   <select id="getUserByMap"
           parameterType="Map"
           resultType="UserDto">
-    SELECT USER_NO, EMAIL, PW, NAME, GENDER, MOBILE, EVENT_AGREE, SIGNUP_KIND, PW_MODIFY_DT, SIGNUP_DT
+    SELECT USER_NO, EMAIL, PW, NAME, GENDER, MOBILE, EVENT_AGREE, SIGNUP_KIND, PW_MODIFIED_DT, SIGNUP_DT
       FROM USER_T
     <where>
       <if test="email!=null">EMAIL = #{email}</if>
@@ -56,5 +56,16 @@
       )
             
   </insert>
+
+  <select id="getLeaveUserByMap"
+          parameterType="Map"
+          resultType="LeaveUserDto">
+      SELECT LEAVE_USER_NO
+        FROM LEAVE_USER_T
+      <where>
+        <if test="email!=null">EMAIL = #{email}</if>
+        <if test="pw!=null">AND PW = #{pw}</if>
+      </where>
+  </select>
 
 </mapper>

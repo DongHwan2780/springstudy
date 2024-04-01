@@ -24,7 +24,7 @@
       <td>FRI</td>
     </tr>
     <tr id="date">
-      <td>1</td>
+      <td >1</td>
       <td>2</td>
       <td>3</td>
       <td>4</td>
@@ -61,29 +61,52 @@
   </table>
   
   <script>
-  var thum = document.querySelectorAll('#date > td');
-  for(var i = 0; i < thum.length; i++)
-  {  
-	  thum[i].addEventListener('click', (evt)=>{
-		  console.log(evt.target.textContent);
-	    evt.target.textContent = "";
+  
+  document.querySelector('.table2').addEventListener('click', function(evt) {
+	    if (evt.target.tagName === 'TD' && evt.target.parentNode.id == "date") {
+	        if (!evt.target.hasAttribute('data-clicked')) {          // data-clicked 속성이 없으면
+	            evt.target.setAttribute('data-clicked', 'true');
 
-	    var button = document.createElement('input');
-	    button.type = 'button';
-	    button.value = '수정하기';
-	    button.className = 'btn-modify';
-		  
-		  evt.target.append(button);
-		  
-		  button = document.createElement('input');
-	    button.type = 'button';
-	    button.value = '삭제하기';
-	    button.className = 'btn-remove';
-		  
-		  evt.target.append(button);
-		  evt.target.style.backgroundColor = 'rgba(0, 0, 0, 0.3)';
-	  });
-  }
+	            console.log(evt.target.textContent);
+	            evt.target.textContent = "";
+
+	            let buttonModify = document.createElement('button');
+	            buttonModify.type = 'button';
+	            buttonModify.id = 'btn-modify';
+	            buttonModify.textContent = '수정하기';
+	            buttonModify.classList.add('btn-modify');
+	            buttonModify.style.backgroundColor = 'rgba(255, 0, 0, 0.1)';
+	            evt.target.appendChild(buttonModify);
+
+	            let buttonRemove = document.createElement('button');
+	            buttonRemove.type = 'button';
+	            buttonRemove.id = 'btn-remove';
+	            buttonRemove.textContent = '삭제하기';
+	            buttonRemove.classList.add('btn-remove');
+	            buttonRemove.style.backgroundColor = 'rgba(0, 0, 255, 0.1)';
+	            evt.target.appendChild(buttonRemove);
+
+	            evt.target.style.backgroundColor = 'rgba(0, 0, 0, 0.1)';
+	            
+	            
+	            buttonModify.addEventListener('click', function(evt){
+    	            var str = 'rgba(';
+	                for(var i = 0; i < 3; i++)
+	                {
+	                	var color = Math.random() * 255;
+    	            	str += color + ',';	                
+	                }
+	                str += '1)';
+	                buttonModify.style.backgroundColor = str;
+	            })
+	            
+	            
+	        }
+	    }
+	});
+  
+
+  
   
   </script>
   
