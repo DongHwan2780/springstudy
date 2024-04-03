@@ -1,5 +1,7 @@
 package com.gdu.prj00.dao;
 
+import java.util.List;
+
 import org.mybatis.spring.SqlSessionTemplate;
 
 import com.gdu.prj00.dto.MenuDto;
@@ -9,18 +11,12 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class MenuDaoImpl implements MenuDao {
   
-  private final SqlSessionTemplate sqlSessionTemplate;
+  private final SqlSessionTemplate sql;
   public final static String NS = "com.gdu.prj00.mybatis.mapper.menu_t.";
   
   @Override
-    public int updateMenu(MenuDto menuDto) {
-      // TODO Auto-generated method stub
-      return 0;
-    }
-  
-  @Override
-  public int deleteMenu(int menuNo) {
-    // TODO Auto-generated method stub
-    return 0;
+  public List<MenuDto> getMenuList() {
+    System.out.println(sql.selectList(NS + "getMenuList"));
+    return sql.selectList(NS + "getMenuList");
   }
 }

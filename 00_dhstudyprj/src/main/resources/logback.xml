@@ -41,12 +41,12 @@
   <logger name="com.zaxxer.hikari"   level="info"/>
   <logger name="org.mybatis.spring"  level="info"/>
   <logger name="jdbc.sqltiming"      level="info"/>   <!-- 쿼리문 + 실행시간 -->
-  <logger name="jdbc.sqlonly"        level="off"/>    <!-- 쿼리문 -->
-  <logger name="jdbc.connection"     level="off"/>    <!-- Connection 호출 정보 -->
+  <logger name="jdbc.sqlonly"        level="info"/>    <!-- 쿼리문 -->
+  <logger name="jdbc.connection"     level="info"/>    <!-- Connection 호출 정보 -->
   <logger name="jdbc.audit"          level="off"/>    <!-- JDBC 호출 정보 -->
   <logger name="jdbc.resultset"      level="off"/>    <!-- ResultSet 호출 정보 -->
   <logger name="jdbc.resultsettable" level="off"/>    <!-- ResultSet 호출 결과 테이블 -->
-  <logger name="log4jdbc.debug"      level="off"/>    <!-- log4jdbc 라이브러리 동작 -->
+  <logger name="log4jdbc.debug"      level="trace"/>    <!-- log4jdbc 라이브러리 동작 -->
 
   <!-- Root Logger -->
   <root>

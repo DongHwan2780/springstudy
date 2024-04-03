@@ -11,5 +11,7 @@
   </settings>
   
   <!-- typeAliases -->
-  
+  <typeAliases>
+    <typeAlias alias="MenuDto"  type="com.gdu.prj00.dto.MenuDto"/>
+  </typeAliases>
 </configuration>
