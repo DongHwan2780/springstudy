@@ -1,6 +1,7 @@
 package com.gdu.prj00.dao;
 
 import java.util.List;
+import java.util.Map;
 
 import org.mybatis.spring.SqlSessionTemplate;
 
@@ -16,7 +17,6 @@ public class MenuDaoImpl implements MenuDao {
   
   @Override
   public List<MenuDto> getMenuList() {
-    System.out.println(sql.selectList(NS + "getMenuList"));
     return sql.selectList(NS + "getMenuList");
   }
 }

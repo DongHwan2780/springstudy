@@ -13,7 +13,7 @@ import lombok.RequiredArgsConstructor;
 
     @Override
     public List<MenuDto> getMenuList() {
-      System.out.println(menuDao.getMenuList());
+
       return menuDao.getMenuList();
     }
     

@@ -2,11 +2,11 @@
  * 
  */
  
-  var buttonModify;
-  var buttonRemove;
-  var tmp = 0;
-  var bgWhite = 'rgba(255, 255, 255, 1)';
-  var bgChange = 'rgba(0, 0, 0, 0.1)';
+var buttonModify;
+var buttonRemove;
+var tmp = 0;
+var bgWhite = 'rgba(255, 255, 255, 1)';
+var bgChange = 'rgba(0, 0, 0, 0.1)';
   
 const fnGetContextPath = ()=>{
   const host = location.host;  /* localhost:8080 */
@@ -97,17 +97,14 @@ const fnGetContextPath = ()=>{
       $.ajax({
           type: 'GET',
           url: fnGetContextPath() + '/menu/menu.do',
-//          dataType: 'json', // JSON 데이터를 받아오도록 설정
+          dataType: 'json', // JSON 데이터를 받아오도록 설정
           success: function(resData) {
-          console.log(resData);
-              // 성공적으로 데이터를 받았을 때의 처리
               alert("성공이야!");
               var tmp = document.querySelectorAll('#date td');
-              console.log(tmp)
+              console.log(resData[i]);
               for (var i = 0; i < tmp.length; i++) {
                   if (tmp[i].innerHTML != "") {
                       // 받아온 데이터를 이용하여 처리
-                      
                       var menu = resData[i]; // 현재 인덱스의 메뉴 데이터
                       tmp[i].innerHTML += '<div>' + menu.menuNo + '</div>';
                       tmp[i].innerHTML += '<div>' + menu.bob + '</div>';
@@ -116,8 +113,6 @@ const fnGetContextPath = ()=>{
                       tmp[i].innerHTML += '<div>' + menu.banchan2 + '</div>';
                   }
               }
-              console.log(tmp);
-              alert("포문끝났어!");
           },
           error: function(jqXHR) {
               alert(jqXHR.statusText + '(' + jqXHR.status + ')');
