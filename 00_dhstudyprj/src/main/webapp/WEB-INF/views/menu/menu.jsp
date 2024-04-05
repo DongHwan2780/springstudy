@@ -67,6 +67,7 @@ var buttonRemove;
 var tmp = 0;
 var bgWhite = 'rgba(255, 255, 255, 1)';
 var bgChange = 'rgba(0, 0, 0, 0.1)';
+var dbdata;
   
 const fnGetContextPath = ()=>{
   const host = location.host;  /* localhost:8080 */
@@ -82,7 +83,7 @@ const fnGetContextPath = ()=>{
               evt.target.setAttribute('data-clicked', 'true');
 
               tmp = evt.target.innerHTML;           
-              console.log(tmp);
+              console.log(evt.target.value);
               evt.target.innerHTML = "";
 
               evt.target.style.backgroundColor = bgChange;       
@@ -93,8 +94,9 @@ const fnGetContextPath = ()=>{
               evt.target.innerHTML = tmp;
               tmp = 0;
               evt.target.removeAttribute('data-clicked');
+              buttonModify.remove();
+              buttonRemove.remove();
               evt.target.style.backgroundColor = bgWhite;
-              console.log(1);         
           }
       }
   });
@@ -125,18 +127,10 @@ const fnGetContextPath = ()=>{
       fnModify(buttonModify);
       fnRemove(buttonRemove);
   }
-  
   const fnModify = ()=>{
-    buttonModify.addEventListener('click', function(evt){
-          var str = 'rgba(';
-          for(var i = 0; i < 3; i++)
-          {
-            var color = Math.random() * 255;
-            str += color + ',';                 
-          }
-          str += '1)';
-          buttonModify.style.backgroundColor = str;
-      })  
+	  buttonModify.addEventListener('click', function(evt){
+		  window.location.href = "${contextPath}/menu/modify.do?num=" + (evt.target.parentNode.value + 1);
+	  })
   }
   
   const fnRemove = ()=>{
@@ -151,24 +145,26 @@ const fnGetContextPath = ()=>{
           buttonRemove.style.backgroundColor = str;
       })  
   }
-
+ var arr = [];
  const fnShowMenu = () => {
       $.ajax({
           type: 'GET',
           url: fnGetContextPath() + '/menu',
           dataType: 'json',
           success: function(data) {
-        	  console.log(data);
             alert("성공이야!");
             var tmp = document.querySelectorAll('#date td');
             for(var i = 0; i < tmp.length; i++)
           	  {
+            	  const ran = Math.floor(Math.random() * data.length);
                 if (tmp[i].innerHTML != "") {
-                    // 받아온 데이터를 이용하여 처리
-                    tmp[i].innerHTML += '<div>' + data[i].bob + '</div>';
-                    tmp[i].innerHTML += '<div>' + data[i].gook + '</div>';
-                    tmp[i].innerHTML += '<div>' + data[i].banchan1 + '</div>';
-                    tmp[i].innerHTML += '<div>' + data[i].banchan2 + '</div>';
+                	  tmp[i].value = ran;
+                	  //arr[i] = ran;
+                	  console.log(tmp[i].value);
+                    tmp[i].innerHTML += '<div id="bob">' + data[ran].bob + '</div>';
+                    tmp[i].innerHTML += '<div id="gook">' + data[ran].gook + '</div>';
+                    tmp[i].innerHTML += '<div id="banchan1">' + data[ran].banchan1 + '</div>';
+                    tmp[i].innerHTML += '<div id="banchan2">' + data[ran].banchan2 + '</div>';
                 }
           	  } 
           },
@@ -177,8 +173,6 @@ const fnGetContextPath = ()=>{
           }
       });
   }
-    
-   
  fnShowMenu();
 
 </script>

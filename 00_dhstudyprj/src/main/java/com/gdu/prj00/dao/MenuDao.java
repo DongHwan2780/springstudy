@@ -8,4 +8,6 @@ import com.gdu.prj00.dto.MenuDto;
 public interface MenuDao {
 
   List<MenuDto> getMenuList();
+  MenuDto getMenu(int menuNo);
+  int modifyMenu(Map<String, Object> map);
 }

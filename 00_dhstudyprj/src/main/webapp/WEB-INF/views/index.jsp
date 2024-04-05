@@ -13,6 +13,5 @@
 
   <a href="${contextPath}/menu/menu.do">메뉴표 가기</a>
    
-  
 </body>
 </html>

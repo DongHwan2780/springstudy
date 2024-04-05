@@ -10,5 +10,6 @@ import com.gdu.prj00.dto.MenuDto;
 public interface MenuService {
 
   public List<MenuDto> getMenuList();
-  
+  public MenuDto getMenu(int menuNo);
+  public ResponseEntity<Map<String, Object>> modifyMenu(Map<String, Object> map);
 }

@@ -6,7 +6,7 @@
   <mapper namespace="com.gdu.prj00.mybatis.mapper.menu_t">
   
   <update id="modifyMenu"
-          parameterType="MenuDto">
+          parameterType="Map">
       UPDATE MENU_T
         SET BOB = #{bob},
             GOOK = #{gook},
@@ -21,8 +21,8 @@
       WHERE MENU_NO = #{menuNo}
   </delete>
   
-  <select id="getMenuByNo"
-          parameterType="MenuDto">
+  <select id="getMenu"
+          resultType="MenuDto">
       SELECT MENU_NO, BOB, GOOK, BANCHAN1, BANCHAN2
         FROM MENU_T
       WHERE MENU_NO = #{menuNo}
