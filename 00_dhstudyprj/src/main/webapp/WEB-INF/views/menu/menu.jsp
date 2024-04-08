@@ -59,7 +59,8 @@
       <td></td>
     </tr>
   </table>
-  
+  <button type="button" id="btn-reload">리로드테스트</button>
+  <button type="button" id="btn-create">생성테스트</button>
   
 <script>
 var buttonModify;
@@ -68,14 +69,20 @@ var tmp = 0;
 var bgWhite = 'rgba(255, 255, 255, 1)';
 var bgChange = 'rgba(0, 0, 0, 0.1)';
 var dbdata;
+var date = document.querySelectorAll('#date td');
+var buttonReload = document.getElementById('btn-reload');
+var arrs = [];
+var arrString;
+var numsString;
+var numsArr;
   
-const fnGetContextPath = ()=>{
-  const host = location.host;  /* localhost:8080 */
-  const url = location.href;   /* http://localhost:8080/mvc/getDate.do */
-  const begin = url.indexOf(host) + host.length;
-  const end = url.indexOf('/', begin + 1);
-  return url.substring(begin, end);
-}
+  const fnGetContextPath = ()=>{
+    const host = location.host;  /* localhost:8080 */
+    const url = location.href;   /* http://localhost:8080/mvc/getDate.do */
+    const begin = url.indexOf(host) + host.length;
+    const end = url.indexOf('/', begin + 1);
+    return url.substring(begin, end);
+  }
   
   document.querySelector('.table2').addEventListener('click', function(evt) {
       if (evt.target.tagName === 'TD' && evt.target.parentNode.id == "date") {
@@ -129,23 +136,17 @@ const fnGetContextPath = ()=>{
   }
   const fnModify = ()=>{
 	  buttonModify.addEventListener('click', function(evt){
+      var pageData = "reloadtest";
+      sessionStorage.setItem("reload", pageData);
 		  window.location.href = "${contextPath}/menu/modify.do?num=" + (evt.target.parentNode.value + 1);
 	  })
   }
   
   const fnRemove = ()=>{
     buttonRemove.addEventListener('click', function(evt){
-          var str = 'rgba(';
-          for(var i = 0; i < 3; i++)
-          {
-            var color = Math.random() * 255;
-            str += color + ',';                 
-          }
-          str += '1)';
-          buttonRemove.style.backgroundColor = str;
-      })  
+    })
   }
- var arr = [];
+
  const fnShowMenu = () => {
       $.ajax({
           type: 'GET',
@@ -153,31 +154,80 @@ const fnGetContextPath = ()=>{
           dataType: 'json',
           success: function(data) {
             alert("성공이야!");
-            var tmp = document.querySelectorAll('#date td');
-            for(var i = 0; i < tmp.length; i++)
+            for(var i = 0; i < date.length; i++)
           	  {
             	  const ran = Math.floor(Math.random() * data.length);
-                if (tmp[i].innerHTML != "") {
-                	  tmp[i].value = ran;
-                	  //arr[i] = ran;
-                	  console.log(tmp[i].value);
-                    tmp[i].innerHTML += '<div id="bob">' + data[ran].bob + '</div>';
-                    tmp[i].innerHTML += '<div id="gook">' + data[ran].gook + '</div>';
-                    tmp[i].innerHTML += '<div id="banchan1">' + data[ran].banchan1 + '</div>';
-                    tmp[i].innerHTML += '<div id="banchan2">' + data[ran].banchan2 + '</div>';
+                if (date[i].innerHTML != "") {
+                	  date[i].value = ran;
+                	  date[i].innerHTML += '<div id="bob' + i +'">' + data[ran].bob + '</div>';
+                	  date[i].innerHTML += '<div id="gook' + i +'">' + data[ran].gook + '</div>';
+                	  date[i].innerHTML += '<div id="banchan1' + i +'">' + data[ran].banchan1 + '</div>';
+                	  date[i].innerHTML += '<div id="banchan2' + i +'">' + data[ran].banchan2 + '</div>';
                 }
           	  } 
+            
+            for(var i = 0; i < date.length; i++)
+            {
+              arrs.push(date[i].value);
+            } 
+            arrString = JSON.stringify(arrs);
+            console.log(arrString);
+            window.localStorage.setItem('nums', arrString);
+            
           },
           error: function(jqXHR) {
               alert(jqXHR.statusText + '(' + jqXHR.status + ')');
           }
       });
   }
- fnShowMenu();
+ 
+ const fnReloadMenu = ()=>{
+     $.ajax({
+         type: 'GET',
+         url: fnGetContextPath() + '/menu',
+         dataType: 'json',
+         success: function(data) {
+           alert("리로드성공이야!");
+           numsString = window.localStorage.getItem('nums');
+           numsArr = JSON.parse(numsString);
+           console.log(numsArr);
+           for(var i = 0; i < date.length; i++)
+             {
+               if (date[i].innerHTML != "") {
+            	   date[i].innerHTML += '<div id="bob' + i +'">' + data[numsArr[i]].bob + '</div>';
+                 date[i].innerHTML += '<div id="gook' + i +'">' + data[numsArr[i]].gook + '</div>';
+                 date[i].innerHTML += '<div id="banchan1' + i +'">' + data[numsArr[i]].banchan1 + '</div>';
+                 date[i].innerHTML += '<div id="banchan2' + i +'">' + data[numsArr[i]].banchan2 + '</div>';
+               }
+             } 
+         },
+         error: function(jqXHR) {
+             alert(jqXHR.statusText + '(' + jqXHR.status + ')');
+         }
+     }); 
+ }
+ 
+ const fnReload = ()=>{
+	 buttonReload.addEventListener('click', function(evt){
+		 console.log(1);
+		 fnReloadMenu();
+    })  
+ }
+ 
+ const fnCreate = ()=>{
+	   document.getElementById('btn-create').addEventListener('click', function(evt){
+		   console.log(1);
+		   fnShowMenu();
+	    })  
+	 }
+ 
+fnReload();
+fnCreate();
+//fnShowMenu();
+	 
+ //window.localStorage.clear();
 
 </script>
 
-
-  
 </body>
 </html>

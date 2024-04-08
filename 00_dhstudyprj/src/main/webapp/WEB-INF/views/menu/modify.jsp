@@ -12,7 +12,7 @@
 <body>
   <h1>수정페이지</h1>
   <div>
-    <input type="text" id="menuNo" placeholder="${num}">
+    <input type="text" id="menuNo" placeholder="${num}" readonly>
     <br>
     <input type="text" id="bob" placeholder="">
     <br>
@@ -34,7 +34,7 @@
   var jqGook = $('#gook');
   var jqBanchan1 = $('#banchan1');
   var jqBanchan2 = $('#banchan2');
-  
+  const menuNo = document.getElementById('menuNo').getAttribute('placeholder');
   
   const fnGetContextPath = ()=>{
 	  const host = location.host;  /* localhost:8080 */
@@ -46,7 +46,6 @@
   
   
   const fnShowModify = ()=>{
-	  const menuNo = document.getElementById('menuNo').getAttribute('placeholder');
 	  console.log(menuNo);
 	  $.ajax({
 		  type:'GET',
@@ -69,7 +68,8 @@
   }
   
   const goback = ()=>{
-	  window.history.back();
+	  window.location.href = fnGetContextPath() + '/menu/menu.do';
+	  //window.history.back();
   }
   
   const modify = ()=>{
@@ -83,7 +83,7 @@
 			  'gook':jqGook.val(),
 			  'banchan1':jqBanchan1.val(),
 			  'banchan2':jqBanchan2.val(),
-			  'menuNo': jqMenuNo.val()
+			  'menuNo': menuNo
 		  }),
 		  dataType:'json',
 		  success:(resData)=>{

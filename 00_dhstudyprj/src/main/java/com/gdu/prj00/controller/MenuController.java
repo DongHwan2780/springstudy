@@ -67,8 +67,7 @@ public class MenuController {
     return menuService.getMenu(menuNo);
   }
   
-  
-  @PutMapping(value="/modifymenu", produces = "application/json")
+  @PutMapping(value="/modifymenu", produces = "application/json")   // modify에서 사용, 수정할 값을 가진 Object를 DB로 전송
   public ResponseEntity<Map<String, Object>> modifyMenu(@RequestBody Map<String, Object> map)
   {
     return menuService.modifyMenu(map);
