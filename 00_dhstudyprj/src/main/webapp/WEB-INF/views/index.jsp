@@ -11,6 +11,16 @@
 </head>
 <body>
 
+  <div class="user-space"> 
+    <c:if test="${sessionScope.user == null}">
+      <a href="${contextPath}/menu/login.do">로그인</a>        
+    </c:if>
+    <c:if test="${sessionScope.user != null}">
+      ${sessionScope.user.name}님 반갑습니다
+      <a href="${contextPath}/menu/logout.do">로그아웃</a>
+    </c:if>
+  </div>
+
   <a href="${contextPath}/menu/menu.do">메뉴표 가기</a>
    
 </body>

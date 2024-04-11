@@ -4,15 +4,19 @@ import java.util.ArrayList;
 import java.util.List;
 
 import java.util.Map;
+import java.util.Optional;
 
 import javax.servlet.ServletRequest;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -73,5 +77,12 @@ public class MenuController {
     return menuService.modifyMenu(map);
   }
   
+  
+  @DeleteMapping(value="/deletemenu/{menuNo}", produces = "application/json")
+  public ResponseEntity<Map<String, Object>> deleteMenu(@PathVariable(value="menuNo") Optional<String> opt)
+  {
+   int menuNo = Integer.parseInt(opt.orElse("0"));
+   return menuService.removeMember(menuNo);
+  }
 }
 

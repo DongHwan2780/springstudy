@@ -65,16 +65,20 @@
 <script>
 var buttonModify;
 var buttonRemove;
+var buttonReload = document.getElementById('btn-reload');
+
 var tmp = 0;
 var bgWhite = 'rgba(255, 255, 255, 1)';
 var bgChange = 'rgba(0, 0, 0, 0.1)';
 var dbdata;
 var date = document.querySelectorAll('#date td');
-var buttonReload = document.getElementById('btn-reload');
+
 var arrs = [];
 var arrString;
 var numsString;
 var numsArr;
+
+var deleteCount = 0;
   
   const fnGetContextPath = ()=>{
     const host = location.host;  /* localhost:8080 */
@@ -144,6 +148,18 @@ var numsArr;
   
   const fnRemove = ()=>{
     buttonRemove.addEventListener('click', function(evt){
+    	$.ajax({
+    		type:'DELETE',
+    		url: fnGetContextPath() + '/deletemenu/' + (evt.target.parentNode.value + 1),
+    		dataType:'json'
+    	})
+    	.done(function(){
+    		alert("삭제 성공");
+    		deleteCount++;
+    	})
+    	.fail(function(){
+    		alert(jqXHR.statusText + '(' + jqXHR.status + ')');
+    	})
     })
   }
 
@@ -156,7 +172,7 @@ var numsArr;
             alert("성공이야!");
             for(var i = 0; i < date.length; i++)
           	  {
-            	  const ran = Math.floor(Math.random() * data.length);
+            	  const ran = Math.floor(Math.random() * (data.length - deleteCount));
                 if (date[i].innerHTML != "") {
                 	  date[i].value = ran;
                 	  date[i].innerHTML += '<div id="bob' + i +'">' + data[ran].bob + '</div>';
@@ -194,12 +210,15 @@ var numsArr;
            for(var i = 0; i < date.length; i++)
              {
                if (date[i].innerHTML != "") {
+            	   console.log(numsArr[i]);
+            	   date[i].value = numsArr[i];
             	   date[i].innerHTML += '<div id="bob' + i +'">' + data[numsArr[i]].bob + '</div>';
                  date[i].innerHTML += '<div id="gook' + i +'">' + data[numsArr[i]].gook + '</div>';
                  date[i].innerHTML += '<div id="banchan1' + i +'">' + data[numsArr[i]].banchan1 + '</div>';
                  date[i].innerHTML += '<div id="banchan2' + i +'">' + data[numsArr[i]].banchan2 + '</div>';
                }
-             } 
+             }
+           //window.localStorage.clear();
          },
          error: function(jqXHR) {
              alert(jqXHR.statusText + '(' + jqXHR.status + ')');
@@ -210,22 +229,27 @@ var numsArr;
  const fnReload = ()=>{
 	 buttonReload.addEventListener('click', function(evt){
 		 console.log(1);
-		 fnReloadMenu();
+     if(date[0].value == undefined)
+    	 {
+	  		 fnReloadMenu();
+    	 }
     })  
  }
  
  const fnCreate = ()=>{
 	   document.getElementById('btn-create').addEventListener('click', function(evt){
 		   console.log(1);
-		   fnShowMenu();
+		   if(date[0].value == undefined)
+			   {
+			   fnShowMenu();
+			   }
 	    })  
 	 }
  
 fnReload();
+
 fnCreate();
-//fnShowMenu();
-	 
- //window.localStorage.clear();
+
 
 </script>
 

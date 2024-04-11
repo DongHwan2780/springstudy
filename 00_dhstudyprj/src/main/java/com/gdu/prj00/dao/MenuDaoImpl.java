@@ -28,4 +28,9 @@ public class MenuDaoImpl implements MenuDao {
   public int modifyMenu(Map<String, Object> map) {
     return sql.update(NS + "modifyMenu", map);
   }
+  
+  @Override
+  public int deleteMenu(int menuNo) {
+    return sql.delete(NS + "removeMenu", menuNo);
+  }
 }

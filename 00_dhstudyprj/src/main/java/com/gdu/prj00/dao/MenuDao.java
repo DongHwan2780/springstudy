@@ -10,4 +10,5 @@ public interface MenuDao {
   List<MenuDto> getMenuList();
   MenuDto getMenu(int menuNo);
   int modifyMenu(Map<String, Object> map);
+  int deleteMenu(int menuNo);
 }
